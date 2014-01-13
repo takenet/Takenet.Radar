@@ -1,0 +1,267 @@
+﻿@using Takenet.Radar.Models
+@model Takenet.Radar.Models.RadarViewModel
+
+@{
+    Layout = null;
+    int[] quadrantList = new int[4] { 2, 1, 3, 4 };
+}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="Takenet Technology Radar">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://radar.takenet.com.br">
+    <meta property="og:image" content="~/Content/images/radarTake.png">
+    <link rel="stylesheet" href="~/Content/radar-dots.css">
+    <link rel="stylesheet" href="~/Content/radar.css">
+    <link rel="stylesheet" href="~/Content/site.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oxygen:400,300,700">
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <title>Takenet Technology Radar</title>
+    <style type="text/css"></style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img class="header-logo" src="~/Content/images/radarTake.png">
+            <h1 class="title header-title">Take Radar</h1>
+        </div>
+    </header>
+    <article>
+        <div class="intro container">
+            <h2 class="title section-title">Sobre o Radar</h2>
+            <p>Nossa ideia ao criar esse radar era divulgar sobre ferramentas, práticas e processos que acreditamos. O oposto também é válido: divulgar tudo aquilo que, por algum motivo, não acreditamos mais.</p>
+
+            <p>Todo o conteúdo deste documento é fortemente baseado na experiência e conhecimentos dos nossos colaboradores. Mas como qualquer discussão em engenharia de software, não há uma resposta única e exata. Antes de seguir o que está escrito aqui, o leitor deve analisar bem o contexto em que está envolvido.</p>
+
+            <p>Nosso tech radar usa o <a href="http://martinfowler.com/articles/radar-faq.html">formato definido e utilizado</a> pela Thoughtworks em <a href="http://www.thoughtworks.com/radar">seus radares</a>.</p>
+
+            <p>É importante que o leitor entenda como esse radar funciona. Os ítens foram classificados em práticas, ferramentas, plataformas, linguagens/frameworks. Cada uma dessas categorias encontra-se em uma das extremidades do radar.</p>
+
+            <p>Além disso, cada ítem foi colocado em um anel, de acordo com nossa opinião. Os anéis são:</p>
+
+            <dl class="intro-list">
+                <dt class="label">Adopt / Adote
+                </dt>
+                <dd>Nós acreditamos que esses ítens podem ser adotados pela indústria. Acreditamos
+                         que a escolha desses ítens é, na maioria das vezes, acertada.
+
+                </dd>
+                <dt class="label">Trial / Experimente
+                </dt>
+                <dd>Vale a pena testar em projetos menores ou com baixa criticidade.
+
+                </dd>
+                <dt class="label">Assess / Explore
+                </dt>
+                <dd>Deve ser explorados com o objetivo de ver como se encaixa na takenet.
+
+                </dd>
+                <dt class="label">Hold / Evite
+                </dt>
+                <dd>Os ítens que estão aqui devem ser evitados.
+                </dd>
+            </dl>
+
+            <p>Esta é a primeira vez que nos organizamos para gerar tal documento. Temos muito ainda a aprender sobre ele, e portanto, todo feedback é bem vindo.</p>
+        </div>
+        <div id="radar-container">
+            <div class="container">
+                <nav class="radar">
+                    @for (int i = 0; i < quadrantList.Length; i++)
+                    {
+                        <section class="quadrant quadrant-@quadrantList[i]">
+
+                            <ol class="radar-arc hold">
+                                @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Hold))
+                                {
+                                    <li id="dot-@entity.Id" class="radar-item" style="top:@entity.Top%; left:@entity.Left%;">
+                                        <a class="radar-link @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
+                                            @entity.Id
+                                        </a>
+                                    </li>
+                                }
+                            </ol>
+                            <ol class="radar-arc assess">
+                                @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Assess))
+                                {
+                                    <li id="dot-@entity.Id" class="radar-item" style="top:@entity.Top%; left:@entity.Left%;">
+                                        <a class="radar-link @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
+                                            @entity.Id
+                                        </a>
+                                    </li>
+                                }
+                            </ol>
+                            <ol class="radar-arc trial">
+                                @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Trial))
+                                {
+                                    <li id="dot-@entity.Id" class="radar-item" style="top:@entity.Top%; left:@entity.Left%;">
+                                        <a class="radar-link @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
+                                            @entity.Id
+                                        </a>
+                                    </li>
+                                }
+                            </ol>
+                            <ol class="radar-arc adopt">
+                                @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Adopt))
+                                {
+                                    <li id="dot-@entity.Id" class="radar-item" style="top:@entity.Top%; left:@entity.Left%;">
+                                        <a class="radar-link @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
+                                            @entity.Id
+                                        </a>
+                                    </li>
+                                }
+                            </ol>
+
+                        </section>
+                    }
+
+                </nav>
+                <div class="labels-container">
+                    @for (int i = 0; i < quadrantList.Length; i++)
+                    {
+                        <div id="quadrant-@quadrantList[i]-labels" class="quadrant-labels">
+                            <h2 class="title labels-title">@Model.Categories.Single(x => x.Quadrant == quadrantList[i]).Name</h2>
+
+                            <section class="arc-labels hold">
+                                <h3 class="title label">hold</h3>
+                                <ol class="label-list">
+                                    @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Hold))
+                                    {
+                                        <li id="@Html.Raw("label-" + entity.Id)">
+                                            <a href="@Html.Raw("#exp" + entity.Id)" class="radar-label @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")">
+                                                <span class="label">@entity.Id</span>
+                                                <span>@entity.Name</span>
+                                            </a></li>
+                                    }
+                                </ol>
+                            </section>
+                            <section class="arc-labels assess">
+                                <h3 class="title label">asses</h3>
+                                <ol class="label-list">
+                                    @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Assess))
+                                    {
+                                        <li id="@Html.Raw("label-" + entity.Id)">
+                                            <a href="@Html.Raw("#exp" + entity.Id)" class="radar-label @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")">
+                                                <span class="label">@entity.Id</span>
+                                                <span>@entity.Name</span>
+                                            </a></li>
+                                    }
+                                </ol>
+                            </section>
+                            <section class="arc-labels trial">
+                                <h3 class="title label">trial</h3>
+                                <ol class="label-list">
+                                    @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Trial))
+                                    {
+                                        <li id="@Html.Raw("label-" + entity.Id)">
+                                            <a href="@Html.Raw("#exp" + entity.Id)" class="radar-label @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")">
+                                                <span class="label">@entity.Id</span>
+                                                <span>@entity.Name</span>
+                                            </a></li>
+                                    }
+                                </ol>
+                            </section>
+                            <section class="arc-labels adopt">
+                                <h3 class="title label">adopt</h3>
+                                <ol class="label-list">
+                                    @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Adopt))
+                                    {
+                                        <li id="@Html.Raw("label-" + entity.Id)">
+                                            <a href="@Html.Raw("#exp" + entity.Id)" class="radar-label @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")">
+                                                <span class="label">@entity.Id</span>
+                                                <span>@entity.Name</span>
+                                            </a></li>
+                                    }
+                                </ol>
+                            </section>
+
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="info container">
+            @foreach (int t in quadrantList)
+            {
+                var categoryName = Model.Categories.Single(x => x.Quadrant == t).Name;
+                <section class="quadrant-info" id="@Html.Raw("qi" + t)">
+                    <h2 class="title quadrant-title sticky-title" style="position: absolute; width: 36%; top: 0px;">@categoryName</h2>
+                    <h2 class="title quadrant-title" style="opacity: 0;">@categoryName</h2>
+                    <div class="quadrant-content">
+                        @{int t1 = t;}
+                        @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == t1 & !string.IsNullOrWhiteSpace(x.Description)))
+                        {
+                            <article id="@Html.Raw("exp" + entity.Id)" class="quadrant-article">
+                                <h3 class="label article-title  ">
+                                    @entity.Name
+                                </h3>
+                                <div class="article-content">
+                                    @Html.Raw(entity.Description)
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </section>
+            }
+
+        </div>
+    </article>
+    <footer>
+        <section class="colaborators-container">
+            <div class="container">
+                <h2 class="title section-title">Participantes</h2>
+                <p>
+                    Agradecemos a todos Takeseres que de alguma forma participaram da criação deste Radar.
+                </p>
+                <section class="organizers">
+                    <h3 class="title label">Organizadores</h3>
+                    <ul class="colaborator-list">
+                        <li class="colaborator">
+                            <span class="colaborator-name">André Bires</span>
+                            <img src="http://qph.is.quoracdn.net/main-thumb-10933491-200-JYgXR6JHiMXAxgirbqK0j4s8riTJbWWX.jpeg" width="120" height="120" class="colaborator-img">
+                        </li>
+                        <li class="colaborator">
+                            <span class="colaborator-name">Breno Queiroz</span>
+                            <img src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-prn2/1229980_10200949774839517_932394940_n.jpg" width="120" height="120" class="colaborator-img">
+                        </li>
+                        <li class="colaborator">
+                            <span class="colaborator-name">Gabriel Nepomuceno</span>
+                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/c1.144.513.513/s160x160/581486_10151635276444753_786141108_n.jpg" width="120" height="120" class="colaborator-img">
+                        </li>
+                    </ul>
+                </section>
+                @*<section class="colaborators">
+                    <h3 class="title label">Participantes</h3>
+                    <ul class="colaborator-list">
+                        <li class="colaborator">
+                            <span class="colaborator-name">Mario Amaral</span>
+                            <img src="http://gravatar.com/avatar/12cda4801087c9f98189391e81da6ee8" class="colaborator-img">
+                        </li>
+                    </ul>
+                </section>*@
+            </div>
+            <!-- container -->
+        </section>
+        <section class="footer-bottom">
+            <div class="container">
+                <div class="sponsor-box">
+                    <a class="footer-logo first-logo" href="http://www.takenet.com.br/">Takenet</a>
+                    <ul class="footer-sub-list">
+                        <li class="footer-list-item"><a class="footer-link" href="http://www.takenet.com.br/">Takenet</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- container -->
+        </section>
+    </footer>
+    <script defer="defer" src="~/scripts/class-list-shim.js"></script>
+    <script defer="defer" src="~/scripts/radar-labels.js"></script>
+    <script defer="defer" src="~/scripts/info-titles.js"></script>
+</body>
+</html>

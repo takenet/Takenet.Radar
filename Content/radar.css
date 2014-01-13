@@ -1,0 +1,264 @@
+﻿#radar-container {
+  padding: 3em 0;
+  width: 100%;
+  min-height: 17.5em;
+  background: #204C64;
+}
+
+#radar-container .title {
+  color: #fff;
+}
+
+.radar {
+  height: 400px;
+  width: 400px;
+  position: relative;
+  float: left;
+}
+
+.quadrant {
+	height: 50%;
+	width: 50%;
+	position: absolute;
+	-moz-transition: all .2s linear 0;
+	-o-transition: all .2s linear 0;
+	-webkit-transition: all .2s linear 0;
+	transition: all .2s linear 0;
+}
+
+.quadrant-1{
+  top: 0;
+  left: 50%;
+}
+
+.quadrant-2{
+  top: 0;
+  left: 0;
+}
+
+.quadrant-3{
+  top: 50%;
+  left: 0;
+}
+
+.quadrant-4{
+  top: 50%;
+  left: 50%;
+}
+
+.quadrant .hold {
+  height: 100%;
+  width: 100%;
+}
+
+.quadrant .assess {
+  width: 80%;
+  height: 80%;
+}
+
+.quadrant .trial {
+  width: 55%;
+  height: 55%;
+}
+
+.quadrant .adopt {
+  width: 30%;
+  height: 30%;
+}
+
+.radar-arc {
+	box-shadow: 0 0 0 1px #DDDDDD;
+	position: absolute;
+	background: #fff;
+	list-style: none;
+	-moz-transition: background .2s ease-in;
+	-o-transition: background .2s ease-in;
+	-webkit-transition: background .2s ease-in;
+	transition: background .2s ease-in;
+}
+
+.quadrant-2 .radar-arc{
+  border-radius: 100% 0 0 0;
+  bottom: 0;
+  right: 0;
+}
+
+.quadrant-1 .radar-arc{
+  border-radius: 0 100% 0 0;
+  bottom: 0;
+  left: 0;
+}
+
+.quadrant-4 .radar-arc{
+  border-radius: 0 0 100% 0;
+}
+
+.quadrant-3 .radar-arc{
+  border-radius: 0 0 0 100%;
+  top: 0;
+  right: 0;
+}
+
+.radar-item {
+  display: inline-block;
+  position: absolute;
+}
+
+.radar-link {
+  font-size: .6em;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 1.5em;
+  height: 1.5em;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 100%;
+}
+
+.quadrant-2 .radar-link {
+  background: #8FA227;
+}
+
+.quadrant-1 .radar-link {
+  background: #587486;
+}
+
+.quadrant-4 .radar-link {
+  background: #B70062;
+}
+
+.quadrant-3 .radar-link {
+  background: #DC6F1D;
+}
+
+/*Labels*/
+
+.labels-container {
+  display: block;
+  overflow: hidden;
+  padding-left: 8%;
+}
+
+.quadrant-labels {
+  font-size: .9em;
+}
+
+.labels-container.hovered .quadrant-labels {
+  position: absolute;
+}
+
+.quadrant-labels.hovered {
+  background: #204C64;
+  z-index: 1000;
+}
+
+.arc-labels {
+	opacity: 1;
+	width: 11em;
+	vertical-align: top;
+	padding: 1em 0.5em;
+	display: none;
+	visibility: hidden;
+	-moz-transition: background .2s ease-in;
+	-o-transition: background .2s ease-in;
+	-webkit-transition: background .2s ease-in;
+	transition: background .2s ease-in;
+}
+
+.quadrant-labels.hovered .arc-labels {
+  opacity: 1;
+  display: inline-block;
+  visibility: visible;
+}
+
+.arc-labels.hovered {
+  background: #215469;
+}
+
+.arc-labels .title {
+  text-transform: capitalize;
+  margin-bottom: .3em;
+}
+
+.label-list {
+  list-style: none;
+}
+
+.label-list .label{
+  margin-right: .5em;
+}
+
+.label-list .label:after {
+  content:  ".";
+}
+
+.radar-label {
+	text-decoration: none;
+	color: #fff;
+	-ms-word-break: break-all;
+	word-break: break-all;
+	word-break: break-word;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+	hyphens: auto;
+}
+
+.radar-link.muted,
+.radar-label.muted {
+  cursor: default;
+}
+
+/*Effects*/
+
+#radar-container .quadrant:hover {
+  height: 70%;
+  width: 70%;
+}
+
+#radar-container .quadrant-1:hover {
+  top: -22%;
+  left: 52%;
+}
+
+#radar-container .quadrant-2:hover {
+  top: -22%;
+  left: -22%;
+}
+
+#radar-container .quadrant-3:hover {
+  top: 52%;
+  left: -22%;
+}
+
+#radar-container .quadrant-4:hover {
+  top: 52%;
+  left: 52%;
+}
+
+.quadrant-1 .radar-arc:hover {
+  background: #E0E7E9;
+}
+
+.quadrant-2 .radar-arc:hover {
+  background: #EEF7D1;
+}
+
+.quadrant-3 .radar-arc:hover {
+  background: #F8ECDF;
+}
+
+.quadrant-4 .radar-arc:hover {
+  background: #F1DCEA;
+}
+
+.quadrant:hover .radar-arc {
+  box-shadow: 0 0 0 1px #acacac;
+}
+
+.quadrant:hover .radar-link{
+  font-size: .8em;
+}
+
+/*deixar os label-titles como display block, e os label-list como display none, aplicar a classe hovered que deixara tudo absolute, o resto com opacity 0*/
