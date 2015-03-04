@@ -2,13 +2,13 @@
 ## Custom
 #################
 
-
+#Ignore packages/ folder
+packages/
 
 
 #################
 ## Eclipse
 #################
-packages/
 
 *.pydevproject
 .project
