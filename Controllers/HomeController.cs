@@ -6,14 +6,13 @@ using System.Web.Mvc;
 using Google.GData.Client;
 using Google.GData.Spreadsheets;
 using Takenet.Radar.Models;
+using AttributeRouting.Web.Mvc;
 
 namespace Takenet.Radar.Controllers
 {
     public class HomeController : Controller
     {
-        //
         // GET: /Home/
-
         public ActionResult Index()
         {
             string USERNAME = "arquitetura.takenet@gmail.com";
@@ -30,7 +29,7 @@ namespace Takenet.Radar.Controllers
             SpreadsheetFeed feed = service.Query(query);
 
 
-            var entry = feed.Entries.FirstOrDefault(x => x.Title.Text.Contains("Radar")) as SpreadsheetEntry;
+            var entry = feed.Entries.OrderByDescending(x => x.Published).FirstOrDefault(x => x.Title.Text.Contains("Radar")) as SpreadsheetEntry;
             var categories = entry.Worksheets.Entries.FirstOrDefault(x => x.Title.Text == "Categories") as WorksheetEntry;
             var entities = entry.Worksheets.Entries.FirstOrDefault(x => x.Title.Text == "Entries") as WorksheetEntry;
 
@@ -38,6 +37,34 @@ namespace Takenet.Radar.Controllers
             viewModel.Entities = GetEntities(viewModel.Categories, entities, service);
             
             return View(viewModel);
+        }
+
+        // GET: /Home/
+        [Route("versions/{version}")]
+        public ActionResult IndexByVersion(string version)
+        {
+            string USERNAME = "arquitetura.takenet@gmail.com";
+            string PASSWORD = "Takenet123";
+
+            var viewModel = new RadarViewModel();
+            viewModel.Version = version != null ? version.Replace('-', '/') : version;
+
+            var service = new SpreadsheetsService("MySpreadsheetIntegration-v1");
+            service.setUserCredentials(USERNAME, PASSWORD);
+
+            // Instantiate a SpreadsheetQuery object to retrieve spreadsheets.
+            var query = new SpreadsheetQuery();
+            // Make a request to the API and get all spreadsheets.
+            SpreadsheetFeed feed = service.Query(query);
+
+            var entry = feed.Entries.FirstOrDefault(x => x.Title.Text.Equals("Radar de Tecnologias_" + viewModel.Version)) as SpreadsheetEntry;
+            var categories = entry.Worksheets.Entries.FirstOrDefault(x => x.Title.Text == "Categories") as WorksheetEntry;
+            var entities = entry.Worksheets.Entries.FirstOrDefault(x => x.Title.Text == "Entries") as WorksheetEntry;
+
+            viewModel.Categories = GetCategories(categories, service);
+            viewModel.Entities = GetEntities(viewModel.Categories, entities, service);
+
+            return View("Index", viewModel);
         }
 
         private IEnumerable<Entity> GetEntities(IList<Category> categories, WorksheetEntry entities, SpreadsheetsService service)
@@ -82,6 +109,9 @@ namespace Takenet.Radar.Controllers
                             break;
                         case "left":
                             entity.Left = element.Value;
+                            break;
+                        case "type":
+                            entity.Type = element.Value;
                             break;
                     }
                 }

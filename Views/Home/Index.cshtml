@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="~/Content/site.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oxygen:400,300,700">
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     <title>Takenet Technology Radar</title>
     <style type="text/css"></style>
 </head>
@@ -27,13 +27,14 @@
     <header>
         <div class="container">
             <img class="header-logo" src="~/Content/images/radarTake.png">
-            <h1 class="title header-title">Take Radar</h1>
+            <h1 class="title header-title">Take Radar <span style="font-size: 36px; color: #363F9E;">@Model.Version</span></h1>
         </div>
     </header>
     <article>
         <div class="intro container">
             <h2 class="title section-title">Sobre o Radar</h2>
-            <p>Nossa ideia ao criar esse radar era divulgar sobre ferramentas, práticas e processos que acreditamos. O oposto também é válido: divulgar tudo aquilo que, por algum motivo, não acreditamos mais.</p>
+            <p>Ao longo de todo o semestre, durante as reuniões do Comitê de Arquitetura da Takenet, são debatidos diversos aspectos técnicos encontrados nos projetos.</p>
+            <p>Este radar apresenta ferramentas, práticas e processos que o comitê acredita ou não aconselha para as equipes que compõem o P&D.</p>
 
             <p>Todo o conteúdo deste documento é fortemente baseado na experiência e conhecimentos dos nossos colaboradores. Mas como qualquer discussão em engenharia de software, não há uma resposta única e exata. Antes de seguir o que está escrito aqui, o leitor deve analisar bem o contexto em que está envolvido.</p>
 
@@ -44,29 +45,45 @@
             <p>Além disso, cada ítem foi colocado em um anel, de acordo com nossa opinião. Os anéis são:</p>
 
             <dl class="intro-list">
-                <dt class="label">Adopt / Adote
+                <dt class="label">
+                    Adopt / Adote
                 </dt>
-                <dd>Nós acreditamos que esses ítens podem ser adotados pela indústria. Acreditamos
-                         que a escolha desses ítens é, na maioria das vezes, acertada.
+                <dd>
+                    Nós acreditamos que esses ítens podem ser adotados pela indústria. Acreditamos
+                    que a escolha desses ítens é, na maioria das vezes, acertada.
 
                 </dd>
-                <dt class="label">Trial / Experimente
+                <dt class="label">
+                    Trial / Experimente
                 </dt>
-                <dd>Vale a pena testar em projetos menores ou com baixa criticidade.
+                <dd>
+                    Vale a pena testar em projetos menores ou com baixa criticidade.
 
                 </dd>
-                <dt class="label">Assess / Explore
+                <dt class="label">
+                    Assess / Explore
                 </dt>
-                <dd>Deve ser explorados com o objetivo de ver como se encaixa na takenet.
+                <dd>
+                    Deve ser explorados com o objetivo de ver como se encaixa na takenet.
 
                 </dd>
-                <dt class="label">Hold / Evite
+                <dt class="label">
+                    Hold / Evite
                 </dt>
-                <dd>Os ítens que estão aqui devem ser evitados.
+                <dd>
+                    Os ítens que estão aqui devem ser evitados.
                 </dd>
             </dl>
 
-            <p>Esta é a primeira vez que nos organizamos para gerar tal documento. Temos muito ainda a aprender sobre ele, e portanto, todo feedback é bem vindo.</p>
+            <p>Ainda temos muito a aprender sobre o Take.Radar, portanto, todo feedback é bem vindo.</p>
+
+            <p>Abaixo estão listadas as versões existentes dos radares</p>
+            
+            <ul>
+                <li><a href="/versions/1-2015">Radar 1/2015</a></li>
+                <li><a href="/versions/1-2015">Radar 2/2014</a></li>
+            </ul>
+
         </div>
         <div id="radar-container">
             <div class="container">
@@ -79,7 +96,7 @@
                                 @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Hold))
                                 {
                                     <li id="dot-@entity.Id" class="radar-item" style="top:@entity.Top%; left:@entity.Left%;">
-                                        <a class="radar-link @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
+                                        <a class="@Html.Raw(string.IsNullOrWhiteSpace(entity.Type) ? "radar-link" : "radar-link-mobile") @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
                                             @entity.Id
                                         </a>
                                     </li>
@@ -89,7 +106,7 @@
                                 @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Assess))
                                 {
                                     <li id="dot-@entity.Id" class="radar-item" style="top:@entity.Top%; left:@entity.Left%;">
-                                        <a class="radar-link @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
+                                        <a class="@Html.Raw(string.IsNullOrWhiteSpace(entity.Type) ? "radar-link" : "radar-link-mobile") @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
                                             @entity.Id
                                         </a>
                                     </li>
@@ -99,7 +116,7 @@
                                 @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Trial))
                                 {
                                     <li id="dot-@entity.Id" class="radar-item" style="top:@entity.Top%; left:@entity.Left%;">
-                                        <a class="radar-link @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
+                                        <a class="@Html.Raw(string.IsNullOrWhiteSpace(entity.Type) ? "radar-link" : "radar-link-mobile") @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
                                             @entity.Id
                                         </a>
                                     </li>
@@ -109,7 +126,7 @@
                                 @foreach (var entity in Model.Entities.Where(x => x.Category.Quadrant == quadrantList[i] && x.Status == Status.Adopt))
                                 {
                                     <li id="dot-@entity.Id" class="radar-item" style="top:@entity.Top%; left:@entity.Left%;">
-                                        <a class="radar-link @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
+                                        <a class="@Html.Raw(string.IsNullOrWhiteSpace(entity.Type) ? "radar-link" : "radar-link-mobile") @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")" title="" href="@Html.Raw("#exp" + entity.Id)">
                                             @entity.Id
                                         </a>
                                     </li>
@@ -135,7 +152,8 @@
                                             <a href="@Html.Raw("#exp" + entity.Id)" class="radar-label @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")">
                                                 <span class="label">@entity.Id</span>
                                                 <span>@entity.Name</span>
-                                            </a></li>
+                                            </a>
+                                        </li>
                                     }
                                 </ol>
                             </section>
@@ -148,7 +166,8 @@
                                             <a href="@Html.Raw("#exp" + entity.Id)" class="radar-label @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")">
                                                 <span class="label">@entity.Id</span>
                                                 <span>@entity.Name</span>
-                                            </a></li>
+                                            </a>
+                                        </li>
                                     }
                                 </ol>
                             </section>
@@ -161,7 +180,8 @@
                                             <a href="@Html.Raw("#exp" + entity.Id)" class="radar-label @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")">
                                                 <span class="label">@entity.Id</span>
                                                 <span>@entity.Name</span>
-                                            </a></li>
+                                            </a>
+                                        </li>
                                     }
                                 </ol>
                             </section>
@@ -174,7 +194,8 @@
                                             <a href="@Html.Raw("#exp" + entity.Id)" class="radar-label @Html.Raw(!string.IsNullOrWhiteSpace(entity.Description) ? "" : "muted")">
                                                 <span class="label">@entity.Id</span>
                                                 <span>@entity.Name</span>
-                                            </a></li>
+                                            </a>
+                                        </li>
                                     }
                                 </ol>
                             </section>
@@ -222,28 +243,11 @@
                     <h3 class="title label">Organizadores</h3>
                     <ul class="colaborator-list">
                         <li class="colaborator">
-                            <span class="colaborator-name">André Bires</span>
-                            <img src="http://qph.is.quoracdn.net/main-thumb-10933491-200-JYgXR6JHiMXAxgirbqK0j4s8riTJbWWX.jpeg" width="120" height="120" class="colaborator-img">
-                        </li>
-                        <li class="colaborator">
-                            <span class="colaborator-name">André Minelli</span>
-                            <img src="http://hospitalfranciscovilar.com.br/wp-content/uploads/2013/11/gravatar-60-grey.jpg" width="120" height="120" class="colaborator-img">
-                        </li>
-                        <li class="colaborator">
-                            <span class="colaborator-name">Gabriel Nepomuceno</span>
-                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/c1.144.513.513/s160x160/581486_10151635276444753_786141108_n.jpg" width="120" height="120" class="colaborator-img">
+                            <span class="colaborator-name">Integrantes da Comissão de Arquitetura</span>
+                            <img src="" width="120" height="120" class="colaborator-img">
                         </li>
                     </ul>
                 </section>
-                @*<section class="colaborators">
-                    <h3 class="title label">Participantes</h3>
-                    <ul class="colaborator-list">
-                        <li class="colaborator">
-                            <span class="colaborator-name">Mario Amaral</span>
-                            <img src="http://gravatar.com/avatar/12cda4801087c9f98189391e81da6ee8" class="colaborator-img">
-                        </li>
-                    </ul>
-                </section>*@
             </div>
             <!-- container -->
         </section>
@@ -252,7 +256,8 @@
                 <div class="sponsor-box">
                     <a class="footer-logo first-logo" href="http://www.takenet.com.br/">Takenet</a>
                     <ul class="footer-sub-list">
-                        <li class="footer-list-item"><a class="footer-link" href="http://www.takenet.com.br/">Takenet</a>
+                        <li class="footer-list-item">
+                            <a class="footer-link" href="http://www.takenet.com.br/">Takenet</a>
                         </li>
                     </ul>
                 </div>

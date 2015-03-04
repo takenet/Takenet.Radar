@@ -104,6 +104,21 @@
   position: absolute;
 }
 
+.radar-item-mobile {
+    border-radius: 0 0 0 0;
+}
+
+.radar-link-mobile {
+    font-size: .6em;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 1.5em;
+  height: 1.5em;
+  color: #fff;
+  text-decoration: none;
+}
+
 .radar-link {
   font-size: .6em;
   display: table-cell;
@@ -129,6 +144,22 @@
 }
 
 .quadrant-3 .radar-link {
+  background: #DC6F1D;
+}
+
+.quadrant-2 .radar-link-mobile {
+  background: #8FA227;
+}
+
+.quadrant-1 .radar-link-mobile {
+  background: #587486;
+}
+
+.quadrant-4 .radar-link-mobile {
+  background: #B70062;
+}
+
+.quadrant-3 .radar-link-mobile {
   background: #DC6F1D;
 }
 

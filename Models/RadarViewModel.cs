@@ -6,6 +6,8 @@ namespace Takenet.Radar.Models
     {
         public IEnumerable<Entity> Entities { get; set; }
         public IList<Category> Categories { get; set; }
+        public string Type { get; set; }
+        public string Version { get; set; }
     }
 
     public class Category
@@ -24,6 +26,7 @@ namespace Takenet.Radar.Models
         public string Description { get; set; }
         public string Top { get; set; }
         public string Left { get; set; }
+        public string Type { get; set; }
 
     }
 
